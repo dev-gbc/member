@@ -8,13 +8,13 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtCore import Qt, QDate
 from src.excel_handler import ExcelHandler
-from src.scheduler import ChurchScheduler
+from src.scheduler import TeamBasedScheduler
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.excel_handler = ExcelHandler()
-        self.scheduler = ChurchScheduler()
+        self.scheduler = TeamBasedScheduler()  # 초기화만 하고
         self.selected_file = None
         
         self.setWindowTitle("교회 안내/헌금위원 스케줄러")
@@ -83,14 +83,14 @@ class MainWindow(QMainWindow):
         try:
             # 데이터 로드
             df = self.excel_handler.read_staff_data(self.selected_file)
-            self.scheduler.load_staff_data(df)
+            self.scheduler.load_staff_data(df)  # 여기서 데이터 로드
             
             # 날짜 계산
             start_date = self.date_picker.date().toPyDate()
             sundays = self.scheduler.generate_sundays(start_date.strftime('%Y-%m-%d'))
             
             # 스케줄 생성
-            schedule_df = self.scheduler.create_schedule_dataframe(sundays)
+            schedule_df = self.scheduler.generate_schedule(sundays)  # 여기서 스케줄 생성
             
             # 테이블에 결과 표시
             self.table.setRowCount(len(schedule_df))
