@@ -1,4 +1,4 @@
 pandas
 openpyxl
-PyQt6
+PyQt5
 pytest
