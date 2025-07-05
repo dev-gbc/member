@@ -1,0 +1,7 @@
+./tests
+./data
+./.pytest_cache
+codemd*
+*.md
+*.txt
+*.xlsx
